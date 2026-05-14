@@ -1,5 +1,7 @@
 # Reproducible R Workflow Demo
 
+[![DOI](https://zenodo.org/badge/1239000967.svg)](https://doi.org/10.5281/zenodo.20190244)
+
 This repository is a worked example of a reproducible R analysis workflow. It is
 designed as a hands-on teaching resource — you can clone it, run it, and explore
 how each piece fits together.
@@ -175,13 +177,13 @@ If YAML is new to you, [`notes/yaml-primer.md`](notes/yaml-primer.md) has a shor
 ## Author
 
 Lucy Andrews
-[California Department of Water Resources](https://water.ca.gov)
-[ORCID 0000-0003-0278-9079](https://orcid.org/0000-0003-0278-9079)
-[@lucy-dwr](https://github.com/lucy-dwr)
+[California Department of Water Resources](https://water.ca.gov)  
+[ORCID 0000-0003-0278-9079](https://orcid.org/0000-0003-0278-9079)  
+[@lucy-dwr](https://github.com/lucy-dwr)  
 
 ## Citation
 
-If you use this material, please cite it. GitHub generates a formatted citation
+If you use this material, please cite it. The DOI is [10.5281/zenodo.20190244](https://doi.org/10.5281/zenodo.20190244). GitHub also generates a formatted citation
 (BibTeX and APA) from the [`CITATION.cff`](CITATION.cff) file — use the
 **Cite this repository** button in the sidebar on the repository page.
 
