@@ -47,3 +47,15 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+# targets pipeline cache
+_targets/
+
+# renv local package library (commit renv.lock, renv/activate.R, renv/settings.json instead)
+renv/library/
+renv/python/
+renv/staging/
+
+# Quarto render output (generated from pipeline)
+reports/penguins_report.html
+/.quarto/
