@@ -1,5 +1,8 @@
+# this workflow runs the targets pipeline on GitHub's servers to confirm
+# that the project can be rebuilt from scratch on a clean machine.
 name: Run targets workflow
 
+# triggers: run this workflow on every push or pull request to main.
 on:
   push:
     branches: [main]
@@ -7,30 +10,45 @@ on:
     branches: [main]
 
 jobs:
+  # a workflow can contain multiple jobs. This one is named run-targets.
   run-targets:
+    # use the latest Ubuntu virtual machine provided by GitHub.
     runs-on: ubuntu-latest
 
     steps:
+      # each step either calls a pre-built action (uses:) or runs a shell
+      # command (run:). Steps run in sequence on the same machine.
+
+      # download the repository contents onto the runner.
       - name: Check out repository
         uses: actions/checkout@v4
 
+      # install R. r-version pins the exact version; use-public-rspm speeds
+      # up package installation by serving pre-built binaries.
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
         with:
           r-version: '4.5.2'
           use-public-rspm: true
 
+      # install pandoc, which Quarto uses to convert documents.
       - name: Set up pandoc
         uses: r-lib/actions/setup-pandoc@v2
 
+      # install the Quarto CLI so that tar_quarto() can render the report.
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
+      # install a system library that the igraph package requires.
       - name: Install system dependencies
         run: sudo apt-get install -y libglpk-dev
 
+      # read renv.lock and install the exact package versions it records.
+      # this is what makes the environment reproducible on a clean machine.
       - name: Restore R package environment
         uses: r-lib/actions/setup-renv@v2
 
+      # run the pipeline; targets will skip anything already up to date,
+      # but on a fresh runner everything needs to build.
       - name: Run targets pipeline
         run: Rscript -e 'targets::tar_make()'

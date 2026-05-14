@@ -65,7 +65,8 @@ reproducible-r-workflow-demo/
 ├── data/                              # raw data (loaded from palmerpenguins package)
 │
 ├── notes/
-│   └── demo-script.md                 # suggested live demo sequence
+│   ├── demo-script.md                 # suggested live demo sequence
+│   └── yaml-primer.md                 # short YAML introduction for newcomers
 │
 └── .github/
     └── workflows/
@@ -140,6 +141,23 @@ The [r-lib/actions](https://github.com/r-lib/actions) repository maintains a
 collection of common R-focused GitHub Actions workflows (package checks, test
 coverage, pkgdown sites, and more) that you can copy and adapt for your own
 projects.
+
+**Reading the workflow files.** Workflow files are written in YAML. The key
+structural elements are:
+
+- `on:` — what triggers the workflow (here: pushes and pull requests to `main`)
+- `jobs:` — one or more tasks to run; each job gets a fresh virtual machine
+- `steps:` — the sequence of actions within a job; each step calls a pre-built
+  action (`uses:`) or runs a shell command (`run:`)
+
+Pre-built actions are themselves GitHub repositories. The format
+`uses: owner/repo@version` (e.g. `uses: actions/checkout@v4`) tells GitHub
+Actions to fetch that repository at the given version tag and run it as a step.
+`r-lib/actions/setup-r@v2`, for example, lives in the
+[r-lib/actions](https://github.com/r-lib/actions) repository.
+
+The files in `.github/workflows/` include inline comments explaining each step.
+If YAML is new to you, `notes/yaml-primer.md` has a short introduction.
 
 ## Note for instructors
 
