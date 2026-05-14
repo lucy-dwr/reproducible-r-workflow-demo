@@ -57,6 +57,12 @@ renv/python/
 renv/staging/
 
 # Quarto render output (generated from pipeline)
+/index.html
 reports/penguins_report.html
 reports/penguins_report_files/
+slides/reproducible_r_workflows.html
+slides/reproducible_r_workflows_files/
+_site/
 /.quarto/
+slides/.quarto/
+*.quarto_ipynb
