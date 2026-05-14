@@ -58,4 +58,5 @@ renv/staging/
 
 # Quarto render output (generated from pipeline)
 reports/penguins_report.html
+reports/penguins_report_files/
 /.quarto/
