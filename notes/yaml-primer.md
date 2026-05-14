@@ -1,6 +1,6 @@
 # YAML primer for GitHub Actions
 
-GitHub Actions workflow files are written in YAML (YAML Ain't Markup Language).
+GitHub Actions workflow files are written in [YAML (YAML Ain't Markup Language)](https://yaml.org).
 YAML is a plain-text format for structured data. It is designed to be easy to read,
 but the formatting rules can be new to some programmers. This primer covers just 
 enough to read a workflow file confidently. To dig deeper, visit the links at 
@@ -20,7 +20,7 @@ belongs inside something else. Two or four spaces is conventional; consistency m
 
 ```yaml
 jobs:
-  run-targets:       # run-targets is inside jobs
+  run-targets:               # run-targets is inside jobs
     runs-on: ubuntu-latest   # runs-on is inside run-targets
 ```
 
@@ -123,7 +123,7 @@ a searchable index of published actions.
 
 ## Reading `run-targets.yaml`
 
-With the above in mind, the full workflow in `.github/workflows/run-targets.yaml`
+With the above in mind, the full workflow in [`.github/workflows/run-targets.yaml`](../.github/workflows/run-targets.yaml)
 reads as:
 
 1. Trigger on any push or pull request to `main`.
@@ -132,7 +132,7 @@ reads as:
 4. Install R at the pinned version (`r-lib/actions/setup-r`).
 5. Install pandoc and Quarto (needed to render the report).
 6. Install a system library that igraph requires (`libglpk-dev`).
-7. Restore the package environment from `renv.lock` (`r-lib/actions/setup-renv`).
+7. Restore the package environment from [`renv.lock`](../renv.lock) (`r-lib/actions/setup-renv`).
 8. Run `targets::tar_make()`.
 
 If every step passes, the workflow succeeds — confirming that the project can be

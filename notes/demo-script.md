@@ -4,7 +4,7 @@ This script guides a live walkthrough of the reproducible R workflow demo.
 
 ## Suggested sequence
 
-1. **Open `_targets.R`.**
+1. **Open [`_targets.R`](../_targets.R).**
    Point out that each `tar_target()` call defines one analytical product.
    The list structure makes the full workflow visible in a single file.
 
@@ -20,7 +20,7 @@ This script guides a live walkthrough of the reproducible R workflow demo.
    All targets are skipped: "All targets are already up to date."
    This is the skip-and-rebuild behavior.
 
-5. **Modify one function** — for example, change the plot title in `R/visualize.R`
+5. **Modify one function** — for example, change the plot title in [`R/visualize.R`](../R/visualize.R)
    from `"Body mass by species and island"` to `"Penguin body mass by species and island"`.
 
 6. **Run `targets::tar_outdated()`.**

@@ -32,7 +32,7 @@ workflow structure, not modelling sophistication.
 
 ## Slide deck
 
-A Revealjs slide deck introducing these ideas is in `slides/`. It is published to
+A Revealjs slide deck introducing these ideas is in [`slides/`](slides/). It is published to
 [GitHub Pages](https://lucy-dwr.github.io/reproducible-r-workflow-demo/) automatically whenever the `slides/` directory changes.
 
 ## Repository structure
@@ -76,7 +76,7 @@ reproducible-r-workflow-demo/
 
 ## How to run this project
 
-**1. Clone the repository and open the `.Rproj` file in RStudio, Positron, or your
+**1. Clone the repository and open the [`.Rproj`](reproducible-r-workflow-demo.Rproj) file in RStudio, Positron, or your
 favorite IDE.**
 
 **2. Restore the package environment.**
@@ -106,7 +106,7 @@ This opens an interactive diagram showing the dependencies between targets.
 
 **5. Try making a change.**
 
-Edit a function in `R/` — for example, change a plot label in `visualize.R`. Then
+Edit a function in [`R/`](R/) — for example, change a plot label in [`visualize.R`](R/visualize.R). Then
 run:
 
 ```r
@@ -125,16 +125,16 @@ targets::tar_make()       # rebuild only the affected targets
 | `body_mass_plot` | Creates a boxplot of body mass by species and island |
 | `body_mass_model` | Fits `body_mass_g ~ species + island + sex` |
 | `model_summary` | Extracts tidy model coefficients |
-| `report` | Renders `reports/penguins_report.qmd` |
+| `report` | Renders [`reports/penguins_report.qmd`](reports/penguins_report.qmd) |
 
 ## Continuous integration
 
 This repository uses two GitHub Actions workflows:
 
-- **`run-targets.yaml`** — runs the `targets` pipeline on every push and pull
+- **[`run-targets.yaml`](.github/workflows/run-targets.yaml)** — runs the `targets` pipeline on every push and pull
   request to `main`. It restores the `renv` environment from `renv.lock` before
   running `targets::tar_make()`, so the pipeline is verified on a clean machine.
-- **`publish-slides.yaml`** — renders the slide deck and publishes it to GitHub
+- **[`publish-slides.yaml`](.github/workflows/publish-slides.yaml)** — renders the slide deck and publishes it to GitHub
   Pages whenever the `slides/` directory changes.
 
 The [r-lib/actions](https://github.com/r-lib/actions) repository maintains a
@@ -156,8 +156,8 @@ Actions to fetch that repository at the given version tag and run it as a step.
 `r-lib/actions/setup-r@v2`, for example, lives in the
 [r-lib/actions](https://github.com/r-lib/actions) repository.
 
-The files in `.github/workflows/` include inline comments explaining each step.
-If YAML is new to you, `notes/yaml-primer.md` has a short introduction.
+The files in [`.github/workflows/`](.github/workflows/) include inline comments explaining each step.
+If YAML is new to you, [`notes/yaml-primer.md`](notes/yaml-primer.md) has a short introduction.
 
 ## Note for instructors
 
