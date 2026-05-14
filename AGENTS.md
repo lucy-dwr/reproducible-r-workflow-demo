@@ -21,6 +21,7 @@ The core message of the project:
 reproducible-r-workflow-demo/
 ├── AGENTS.md                           # this file
 ├── CLAUDE.md                           # Claude Code project context
+├── LICENSE
 ├── README.md                           # human-facing project overview
 ├── reproducible-r-workflow-demo.Rproj  # RStudio project file
 ├── _targets.R                          # targets pipeline definition
@@ -39,6 +40,7 @@ reproducible-r-workflow-demo/
 │   └── penguins_report.qmd   # Quarto report; loads outputs from targets cache
 │
 ├── slides/
+│   ├── custom.css                      # slide deck styles
 │   ├── reproducible_r_workflows.qmd    # Revealjs slide deck
 │   └── images/                         # static images for slides
 │
