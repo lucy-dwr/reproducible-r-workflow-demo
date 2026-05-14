@@ -18,42 +18,42 @@ to examine body mass patterns by species and island.
 reproducible-r-workflow-demo/
 ├── README.md
 ├── reproducible-r-workflow-demo.Rproj
-├── _targets.R                  # pipeline definition
-├── renv.lock                   # package version record
-├── .Rprofile                   # activates renv on project open
+├── _targets.R                         # pipeline definition
+├── renv.lock                          # package version record
+├── .Rprofile                          # activates renv on project open
 ├── .gitignore
 │
 ├── R/
-│   ├── data.R                  # load raw data
-│   ├── clean.R                 # remove missing values
-│   ├── summarize.R             # summary tables
-│   ├── visualize.R             # figures
-│   └── model.R                 # model fitting and extraction
+│   ├── data.R                         # load raw data
+│   ├── clean.R                        # remove missing values
+│   ├── summarize.R                    # summary tables
+│   ├── visualize.R                    # figures
+│   └── model.R                        # model fitting and extraction
 │
 ├── reports/
-│   └── penguins_report.qmd     # Quarto report (consumes pipeline outputs)
+│   └── penguins_report.qmd            # Quarto report (consumes pipeline outputs)
 │
 ├── slides/
 │   ├── reproducible_r_workflows.qmd   # Revealjs slide deck
 │   └── images/
 │
-├── outputs/                    # derived analysis products
+├── outputs/                           # derived analysis products
 │
-├── data/                       # raw data (loaded from palmerpenguins package)
+├── data/                              # raw data (loaded from palmerpenguins package)
 │
 ├── notes/
-│   └── demo-script.md          # suggested live demo sequence
+│   └── demo-script.md                 # suggested live demo sequence
 │
 └── .github/
     └── workflows/
-        └── run-targets.yaml    # CI workflow
+        └── run-targets.yaml           # CI workflow
 ```
 
 ## How to run this project
 
-**1. Clone the repository and open the `.Rproj` file in RStudio.**
+**1. Clone the repository and open the `.Rproj` file in RStudio, Positron, or your favorite IDE.**
 
-**2. Restore the package environment.**
+**2. Restore the package environment so that you have the correct package versions for the repository.**
 
 ```r
 renv::restore()
