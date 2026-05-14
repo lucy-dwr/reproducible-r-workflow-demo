@@ -136,6 +136,11 @@ This repository uses two GitHub Actions workflows:
 - **`publish-slides.yaml`** — renders the slide deck and publishes it to GitHub
   Pages whenever the `slides/` directory changes.
 
+The [r-lib/actions](https://github.com/r-lib/actions) repository maintains a
+collection of common R-focused GitHub Actions workflows (package checks, test
+coverage, pkgdown sites, and more) that you can copy and adapt for your own
+projects.
+
 ## Note for instructors
 
 The `renv.lock` file is already committed, so learners who clone this repository
