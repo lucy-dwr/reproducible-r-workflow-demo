@@ -35,6 +35,7 @@ jobs:
             --output index.html
           mv index.html _site/index.html
           cp slides/custom.css _site/custom.css
+          cp -r slides/images _site/images
           touch _site/.nojekyll
 
       - name: Configure GitHub Pages
