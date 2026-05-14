@@ -11,6 +11,19 @@ The workflow uses:
 - [GitHub Actions](https://github.com/features/actions) for continuous integration
 - [Quarto](https://quarto.org) for reports and slides
 
+## Contents
+
+- [What you will learn](#what-you-will-learn)
+- [Analytical example](#analytical-example)
+- [Slide deck](#slide-deck)
+- [Repository structure](#repository-structure)
+- [How to run this project](#how-to-run-this-project)
+- [What the pipeline does](#what-the-pipeline-does)
+- [Continuous integration](#continuous-integration)
+- [Author](#author)
+- [Citation](#citation)
+- [Note for instructors](#note-for-instructors)
+
 ## What you will learn
 
 After working through this repository, you should understand:
@@ -161,14 +174,15 @@ If YAML is new to you, [`notes/yaml-primer.md`](notes/yaml-primer.md) has a shor
 
 ## Author
 
-Lucy Andrews — [California Department of Water Resources](https://water.ca.gov) |
-[ORCID 0000-0003-0278-9079](https://orcid.org/0000-0003-0278-9079) |
+Lucy Andrews
+[California Department of Water Resources](https://water.ca.gov)
+[ORCID 0000-0003-0278-9079](https://orcid.org/0000-0003-0278-9079)
 [@lucy-dwr](https://github.com/lucy-dwr)
 
 ## Citation
 
 If you use this material, please cite it. GitHub generates a formatted citation
-(BibTeX, APA, and others) from the [`CITATION.cff`](CITATION.cff) file — use the
+(BibTeX and APA) from the [`CITATION.cff`](CITATION.cff) file — use the
 **Cite this repository** button in the sidebar on the repository page.
 
 ## Note for instructors
