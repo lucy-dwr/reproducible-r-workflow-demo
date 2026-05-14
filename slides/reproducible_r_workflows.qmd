@@ -1,6 +1,6 @@
 ---
 title: "Reproducible R workflows"
-subtitle: "targets, renv, and GitHub Actions"
+subtitle: "`targets`, `renv`, and GitHub Actions"
 author: "Lucy Andrews"
 date: today
 format:
@@ -13,6 +13,7 @@ format:
     highlight-style: github
     footer: "Reproducible R workflows"
     code-overflow: wrap
+    css: custom.css
 execute:
   echo: true
   eval: false
@@ -20,54 +21,34 @@ execute:
   message: false
 ---
 
-::: {.notes}
-This presentation is about moving from code that merely exists to workflows that can be rerun, reviewed, and maintained by other people — including future us.
-:::
-
-# Context
-
 ## What do we mean by reproducibility?
 
-- The same inputs and code can regenerate the same outputs.
-- The project records the software environment needed to run.
-- The workflow makes dependencies and execution order explicit.
-- Changes can be checked automatically before results are trusted.
+<div class="gap"></div>
 
-::: {.notes}
-Reproducibility is partly scientific and partly operational. It is about evidence, but it is also about reducing the amount of hidden knowledge required to rerun a project.
-:::
+- The same inputs and code can regenerate the same outputs
+- The project records the software environment needed to run
+- The workflow makes dependencies and execution order explicit
+- Changes can be checked automatically before results are trusted
 
-## Most projects are reproducible only in the author's head
+## Sometimes projects are reproducible only in the author's head!
 
-- Scripts must be run in the "right" order.
-- Some outputs are saved manually.
-- Package versions are unknown.
-- Results may be stale relative to the code.
-- No automated check confirms that the project still runs.
+<div class="gap"></div>
 
-::: {.notes}
-These problems happen even to skilled analysts. The issue is not individual competence; it is that analytical work often depends on hidden workflow knowledge.
-:::
+- Scripts must be run in the "right" order
+- Some outputs are saved manually
+- Package versions are unknown
+- Results may be stale relative to the code
+- No automated check confirms that the project still runs
 
 ## A reproducible project has a visible chain of evidence
 
-```{mermaid}
-%%| fig-width: 10
-%%| fig-height: 3
-flowchart LR
-  A[Data] --> B[Processing]
-  B --> C[Analysis]
-  C --> D["Figures / Tables / Report"]
-  E(["📦 Dependencies"]):::side -.->|renv| B
-  F(["✅ Automated checks"]):::side -.->|GitHub Actions| C
-  classDef side fill:#f0f0f0,stroke:#999
-```
+![](images/workflow_diagram.png)
 
-::: {.notes}
-The goal is not to add tools for their own sake. The goal is to make the analytical chain visible, testable, and maintainable.
-:::
+## Three recurring reproducibility problems {.smaller}
 
-## Three recurring reproducibility problems
+<div class="gap"></div>
+<div class="gap"></div>
+<div class="gap"></div>
 
 | Problem | Tool | What it protects against |
 |:--------|:-----|:-------------------------|
@@ -75,18 +56,24 @@ The goal is not to add tools for their own sake. The goal is to make the analyti
 | "Why does this work on my machine but not yours?" | `renv` | Package version drift |
 | "How do I know this still works?" | GitHub Actions | Silent breakage, collaboration risk |
 
-::: {.notes}
-I want to introduce these tools as solutions to common workflow problems, not as separate technical topics.
-:::
-
-# The example project
+: {tbl-colwidths="[38,17,45]"}
 
 ## Worked example: Palmer penguins
+
+<div class="gap"></div>
 
 **Analytical question:**
 How do body mass patterns differ among penguin species and islands?
 
-. . .
+![](images/palmer_penguins.png){fig-align="center"}
+
+::: {style="font-size: 0.5em; color: #888;"}
+Illustration by Allison Horst
+:::
+
+## Worked example: Palmer penguins
+
+<div class="gap"></div> 
 
 **The workflow produces:**
 
@@ -96,11 +83,11 @@ How do body mass patterns differ among penguin species and islands?
 - Simple linear regression model
 - Rendered Quarto report
 
-::: {.notes}
-The example is intentionally simple. The point is not statistical sophistication; the point is showing the structure of a reproducible workflow.
-:::
-
 ## The workflow produces analysis artifacts
+
+<div class="gap"></div>
+<div class="gap"></div>
+<div class="gap"></div>
 
 ```text
 outputs/
@@ -111,17 +98,19 @@ outputs/
 └── report.html
 ```
 
-The pipeline defines **what the products are** and **how to make them**.
+<div class="gap"></div>
 
-::: {.notes}
-The goal is not just to run code. The goal is to define the products of the analysis and make the path to those products explicit.
-:::
+The pipeline defines **what the products are** and **how to make them**.
 
 ## A reproducible repository has a shape {.smaller}
 
+<div class="gap"></div>
+<div class="gap"></div>
+<div class="gap"></div>
+
 :::: {.columns}
 
-::: {.column width="50%"}
+::: {.column width="47%"}
 ```text
 reproducible-r-workflow-demo/
 ├── _targets.R
@@ -139,7 +128,10 @@ reproducible-r-workflow-demo/
 ```
 :::
 
-::: {.column width="50%"}
+::: {.column width="6%"}
+:::
+
+::: {.column width="47%"}
 ```text
 ├── reports/
 │   └── penguins_report.qmd
@@ -159,11 +151,11 @@ reproducible-r-workflow-demo/
 
 ::::
 
-::: {.notes}
-The structure itself is part of reproducibility. It tells collaborators where to look and what kinds of files belong in each place.
-:::
+## What belongs where? {.smaller}
 
-## What belongs where?
+<div class="gap"></div>
+<div class="gap"></div>
+<div class="gap"></div>
 
 | Location | Purpose |
 |:---------|:--------|
@@ -175,28 +167,23 @@ The structure itself is part of reproducibility. It tells collaborators where to
 | `.github/workflows/` | Automated checks |
 | `outputs/` | Derived analysis products |
 
-::: {.notes}
-For the demo repository, it is fine to commit small outputs because they help learners see what the project produces. In production repositories, we would be more selective, especially with large or sensitive outputs.
-:::
-
-# targets
-
 ## `targets` turns an analysis into a pipeline
 
-- Defines the steps of an analysis as a **list of targets**.
-- Tracks dependencies among objects and files.
-- **Skips work that is already up to date.**
-- Rebuilds downstream results when upstream code or data change.
+<div class="gap"></div>
 
-::: {.notes}
-The key idea is that we stop thinking only in terms of scripts and start thinking in terms of analytical products — the things the analysis must produce.
-:::
+- Defines the steps of an analysis as a **list of targets**
+- Tracks dependencies among objects and files
+- Skips work that is already up to date
+- Rebuilds downstream results when upstream code or data change
 
-## Scripts remember order implicitly. Pipelines make it explicit.
+## Scripts can suggest order implicitly, pipelines make it explicit {.smaller}
+
+<div class="gap"></div>
+<div class="gap"></div>
 
 :::: {.columns}
 
-::: {.column width="45%"}
+::: {.column width="43%"}
 **Script sequence**
 
 ```r
@@ -206,11 +193,14 @@ source("03_figures.R")
 source("04_report.R")
 ```
 
-The order is a convention.
+This order is a convention.
 It is not enforced.
 :::
 
-::: {.column width="55%"}
+::: {.column width="6%"}
+:::
+
+::: {.column width="51%"}
 **Pipeline**
 
 ```r
@@ -229,41 +219,24 @@ list(
 
 ::::
 
-::: {.notes}
-The pipeline version tells us what depends on what. It is no longer just a remembered sequence of files — the dependency graph is explicit and enforced.
-:::
-
 ## The workflow can be visualized
 
-```{mermaid}
-%%| fig-height: 5
-flowchart TD
-  A([raw_penguins]) --> B([clean_penguins])
-  B --> C([species_summary])
-  B --> D([island_summary])
-  B --> E([body_mass_plot])
-  B --> F([body_mass_model])
-  F --> G([model_summary])
-  C --> H([report])
-  D --> H
-  E --> H
-  G --> H
-```
+<div class="gap"></div>
+
+![](images/tar_visnetwork.png)
 
 `targets::tar_visnetwork()` renders this interactively.
 
-::: {.notes}
-This is one of the most useful features for communication. The workflow becomes something we can inspect and discuss — not something only the analyst knows by heart.
-:::
-
 ## What needs to rerun?
+
+<div class="gap"></div>
 
 If `clean_penguins_data()` changes, `targets` rebuilds:
 
 - `clean_penguins`
-- `species_summary`, `island_summary` *(depend on it)*
-- `body_mass_plot`, `body_mass_model` *(depend on it)*
-- `report` *(depends on all of the above)*
+- `species_summary`, `island_summary`
+- `body_mass_plot`, `body_mass_model`
+- `report`
 
 . . .
 
@@ -273,25 +246,20 @@ Unrelated targets are skipped.
 targets::tar_outdated()   # shows what needs to run
 targets::tar_make()       # runs only what is out of date
 ```
-
-::: {.notes}
-This is one of the big practical wins. We get both efficiency and correctness — we only rerun what changed, but we always rerun everything that was affected.
-:::
-
-# renv
-
 ## The same code can behave differently in a different R environment
 
-- Packages change over time.
-- Collaborators may have different package versions installed.
-- CI starts from a completely clean machine.
-- **A lockfile records the exact package environment.**
+<div class="gap"></div>
 
-::: {.notes}
-A script is not fully reproducible if it depends on package versions that are not recorded anywhere. The lockfile solves this.
-:::
+- Packages change over time
+- Collaborators may have different package versions installed
+- A lockfile records the exact package environment
+- Continous integration starts from a completely clean machine
 
 ## `renv` records the project environment
+
+<div class="gap"></div>
+<div class="gap"></div>
+<div class="gap"></div>
 
 ```r
 # Start project-specific dependency tracking
@@ -306,13 +274,15 @@ renv::restore()
 
 . . .
 
+<div class="gap"></div>
+
 The lockfile becomes part of the reproducible record — commit it.
 
-::: {.notes}
-The main concept is the lockfile. We commit the recipe for the environment, not the entire local package library. Anyone who can restore from that recipe gets the same packages we used.
-:::
+## What gets committed? {.smaller}
 
-## What gets committed?
+<div class="gap"></div>
+<div class="gap"></div>
+<div class="gap"></div>
 
 | File or folder | Commit? | Why |
 |:---------------|:-------:|:----|
@@ -321,25 +291,21 @@ The main concept is the lockfile. We commit the recipe for the environment, not 
 | `renv/settings.json` | ✅ Yes | Records project renv settings |
 | `renv/library/` | ❌ No | Local package cache; machine-specific |
 
-::: {.notes}
-The lockfile is the important artifact. The local package library stays local. Think of the lockfile as the recipe, and the library as the kitchen.
-:::
+## Continuous integration asks: does this project still run from scratch?
 
-# GitHub Actions
+<div class="gap"></div>
 
-## CI asks: does this project still run from scratch?
-
-- Runs checks on a **clean machine** with no local state.
-- Detects missing or unrecorded dependencies.
-- Detects broken code after changes.
-- Makes reproducibility visible to collaborators.
-
-::: {.notes}
-CI is not only for software packages. It is also useful for analytical projects because it tests whether the workflow can run outside the author's laptop — on a machine that knows nothing about local configuration.
-:::
+- Runs checks on a **clean machine** with no local state
+- Detects missing or unrecorded dependencies
+- Detects broken code after changes
+- Makes reproducibility visible to collaborators
 
 ## The GitHub Action restores and runs the workflow {.smaller}
 
+<div class="gap"></div>
+<div class="gap"></div>
+
+::: {style="font-size: 0.8em;"}
 ```yaml
 name: Run targets workflow
 on:
@@ -367,16 +333,16 @@ jobs:
       - name: Run targets pipeline
         run: Rscript -e 'targets::tar_make()'
 ```
-
-::: {.notes}
-The minimum idea is: get the repo, set up R, restore the package environment, and run the pipeline. The r-lib and quarto-dev action libraries take care of a lot of setup boilerplate.
 :::
 
-## CI is a reproducibility check, not scientific peer review
+## CI is a reproducibility check, not scientific peer review {.smaller}
+
+<div class="gap"></div>
+<div class="gap"></div>
 
 :::: {.columns}
 
-::: {.column width="50%"}
+::: {.column width="47%"}
 **CI helps confirm**
 
 - The workflow runs on a clean machine
@@ -385,7 +351,10 @@ The minimum idea is: get the repo, set up R, restore the package environment, an
 - Code changes do not break execution
 :::
 
-::: {.column width="50%"}
+::: {.column width="6%"}
+:::
+
+::: {.column width="47%"}
 **CI does not confirm**
 
 - The analysis is scientifically correct
@@ -396,13 +365,11 @@ The minimum idea is: get the repo, set up R, restore the package environment, an
 
 ::::
 
-::: {.notes}
-CI tells us the machinery runs. We still need domain review, QA/QC, and scientific interpretation. CI is a floor, not a ceiling.
-:::
+## The reproducibility stack {.smaller}
 
-# Putting it together
-
-## The reproducibility stack
+<div class="gap"></div>
+<div class="gap"></div>
+<div class="gap"></div>
 
 | Layer | Question it answers |
 |:------|:--------------------|
@@ -413,24 +380,22 @@ CI tells us the machinery runs. We still need domain review, QA/QC, and scientif
 | GitHub Actions | Does it still run elsewhere? |
 | Quarto | How are results communicated? |
 
-::: {.notes}
-These tools reinforce each other. The workflow is strongest when the repository structure, pipeline, environment, and automated checks all work together.
-:::
+## Adoption can be incremental
 
-## You do not have to adopt everything at once
+<div class="gap"></div>
 
-1. Put the analysis in a well-structured R project.
-2. Move repeated code into functions.
-3. Add `renv` and commit `renv.lock`.
-4. Add `targets` for the main workflow.
-5. Add GitHub Actions to run the workflow automatically.
-6. Add Quarto reports or slides that draw from pipeline outputs.
-
-::: {.notes}
-The destination is a robust workflow, but the path can be incremental. Even adopting step 2 or 3 on its own is a meaningful improvement.
-:::
+1. Put the analysis in a well-structured R project
+2. Move repeated code into functions
+3. Add `renv` and commit `renv.lock`
+4. Add `targets` for the main workflow
+5. Add GitHub Actions to run the workflow automatically
+6. Add Quarto reports or slides that draw from pipeline outputs 
 
 ## Common pitfalls and better practices {.smaller}
+
+<div class="gap"></div>
+<div class="gap"></div>
+<div class="gap"></div>
 
 | Pitfall | Better practice |
 |:--------|:----------------|
@@ -439,13 +404,14 @@ The destination is a robust workflow, but the path can be incremental. Even adop
 | Untracked package versions | Commit `renv.lock` |
 | CI installs the latest packages | Restore from `renv` lockfile |
 | Reports do hidden analysis | Reports consume pipeline outputs |
-| Large files committed to GitHub | Store externally or use a data release pattern |
 
-::: {.notes}
-A reproducible workflow is not just about adding tools. It is also about avoiding patterns that hide dependencies or make the project hard to rerun.
-:::
+## Tutorial repo to be shared {.smaller}
 
-## Live demo
+<div class="gap"></div>
+
+[https://github.com/lucy-dwr/reproducible-r-workflow-demo](https://github.com/lucy-dwr/reproducible-r-workflow-demo)
+
+<div class="gap"></div>
 
 1. Open `_targets.R` — each target is an analysis product.
 2. Run `targets::tar_visnetwork()`
@@ -455,22 +421,18 @@ A reproducible workflow is not just about adding tools. It is also about avoidin
 6. Run `targets::tar_make()` again — only affected targets rebuild.
 7. Open GitHub Actions and show the most recent successful run.
 
-::: {.notes}
-Do not rely on a live GitHub Action triggering during the talk. Have a completed successful run ready to show. The demo should illustrate the skip-and-rebuild behavior of targets more than anything else — that tends to land well with audiences.
-:::
+## Reproducibility is a workflow, not a single tool {.smaller}
 
-## Reproducibility is a workflow, not a single tool
+<div class="gap"></div>
 
-- `targets` makes the analysis workflow explicit.
-- `renv` records the software environment.
-- GitHub Actions checks that the project still runs.
-- Quarto turns reproducible outputs into communication products.
+- `targets` makes the analysis workflow explicit
+- `renv` records the software environment
+- GitHub Actions checks that the project still runs
+- Quarto turns reproducible outputs into communication products
 
 . . .
 
-> The goal is not to make analyses more complicated.
-> The goal is to make the complexity **visible**, **testable**, and **easier to maintain**.
+<div class="gap"></div>
 
-::: {.notes}
-These tools reinforce each other. The workflow is strongest when all layers are in place. But even adopting one or two of them moves a project in the right direction. Thank you.
-:::
+_The goal is not to make analyses more complicated._
+_The goal is to make the complexity **visible**, **testable**, and **easier to maintain**._
