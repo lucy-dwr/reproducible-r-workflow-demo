@@ -1,16 +1,39 @@
 # Reproducible R Workflow Demo
 
-This repository demonstrates a reproducible R analysis workflow using:
+This repository is a worked example of a reproducible R analysis workflow. It is
+designed as a hands-on teaching resource — you can clone it, run it, and explore
+how each piece fits together.
+
+The workflow uses:
 
 - [`targets`](https://docs.ropensci.org/targets/) for pipeline orchestration
 - [`renv`](https://rstudio.github.io/renv/) for environment management
 - [GitHub Actions](https://github.com/features/actions) for continuous integration
 - [Quarto](https://quarto.org) for reports and slides
 
+## What you will learn
+
+After working through this repository, you should understand:
+
+- how to structure a reproducible R project
+- how `targets` tracks workflow dependencies and skips up-to-date work
+- how `renv` records and restores package versions
+- how GitHub Actions can verify that the project runs on a clean machine
+
 ## Analytical example
 
-This project uses the [Palmer penguins](https://allisonhorst.github.io/palmerpenguins/) dataset
-to examine body mass patterns by species and island.
+This project uses the [Palmer penguins](https://allisonhorst.github.io/palmerpenguins/)
+dataset to examine body mass patterns by penguin species and island. The pipeline
+produces a cleaned dataset, summary tables, a boxplot, and a simple linear
+regression — all tied together in a rendered Quarto report.
+
+The statistical model is intentionally simple. The focus of this repository is
+workflow structure, not modelling sophistication.
+
+## Slide deck
+
+A Revealjs slide deck introducing these ideas is in `slides/`. It is published to
+GitHub Pages automatically whenever the `slides/` directory changes.
 
 ## Repository structure
 
@@ -46,14 +69,18 @@ reproducible-r-workflow-demo/
 │
 └── .github/
     └── workflows/
-        └── run-targets.yaml           # CI workflow
+        ├── run-targets.yaml           # CI workflow
+        └── publish-slides.yaml        # GitHub Pages deployment
 ```
 
 ## How to run this project
 
-**1. Clone the repository and open the `.Rproj` file in RStudio, Positron, or your favorite IDE.**
+**1. Clone the repository and open the `.Rproj` file in RStudio, Positron, or your
+favorite IDE.**
 
-**2. Restore the package environment so that you have the correct package versions for the repository.**
+**2. Restore the package environment.**
+
+This gives you the exact package versions the project was built with.
 
 ```r
 renv::restore()
@@ -65,16 +92,25 @@ renv::restore()
 targets::tar_make()
 ```
 
+`targets` will run each step in the correct order and skip anything already up to
+date. The rendered report lands in `outputs/report.html`.
+
 **4. Inspect the pipeline graph.**
 
 ```r
 targets::tar_visnetwork()
 ```
 
-**5. Render the report (if not already rendered by the pipeline).**
+This opens an interactive diagram showing the dependencies between targets.
+
+**5. Try making a change.**
+
+Edit a function in `R/` — for example, change a plot label in `visualize.R`. Then
+run:
 
 ```r
-quarto::quarto_render("reports/penguins_report.qmd")
+targets::tar_outdated()   # see what needs to rerun
+targets::tar_make()       # rebuild only the affected targets
 ```
 
 ## What the pipeline does
@@ -92,25 +128,22 @@ quarto::quarto_render("reports/penguins_report.qmd")
 
 ## Continuous integration
 
-This repository uses GitHub Actions to run the `targets` pipeline on every push and pull request
-to `main`. The workflow restores the `renv` environment from `renv.lock` before running
-`targets::tar_make()`.
+This repository uses two GitHub Actions workflows:
 
-## First-time setup
+- **`run-targets.yaml`** — runs the `targets` pipeline on every push and pull
+  request to `main`. It restores the `renv` environment from `renv.lock` before
+  running `targets::tar_make()`, so the pipeline is verified on a clean machine.
+- **`publish-slides.yaml`** — renders the slide deck and publishes it to GitHub
+  Pages whenever the `slides/` directory changes.
 
-If you are setting up the project from scratch (no `renv.lock` yet):
+## Note for instructors
+
+The `renv.lock` file is already committed, so learners who clone this repository
+can jump straight to `renv::restore()`. If you are building a similar project from
+scratch, the setup sequence is:
 
 ```r
-renv::init()
+renv::init()       # start project-specific dependency tracking
 # install packages, then:
-renv::snapshot()
+renv::snapshot()   # record current package versions to renv.lock
 ```
-
-## Learning goals
-
-After reviewing this repository, you should understand:
-
-- how to structure a reproducible R project
-- how `targets` tracks workflow dependencies and skips up-to-date work
-- how `renv` records and restores package versions
-- how GitHub Actions can verify that the project runs on a clean machine
