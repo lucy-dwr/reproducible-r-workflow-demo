@@ -33,7 +33,7 @@ workflow structure, not modelling sophistication.
 ## Slide deck
 
 A Revealjs slide deck introducing these ideas is in `slides/`. It is published to
-GitHub Pages automatically whenever the `slides/` directory changes.
+[GitHub Pages](https://lucy-dwr.github.io/reproducible-r-workflow-demo/) automatically whenever the `slides/` directory changes.
 
 ## Repository structure
 
@@ -144,6 +144,6 @@ scratch, the setup sequence is:
 
 ```r
 renv::init()       # start project-specific dependency tracking
-# install packages, then:
+# install packages with `install.packages()`, then:
 renv::snapshot()   # record current package versions to renv.lock
 ```
