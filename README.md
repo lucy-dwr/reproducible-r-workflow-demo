@@ -159,6 +159,18 @@ Actions to fetch that repository at the given version tag and run it as a step.
 The files in [`.github/workflows/`](.github/workflows/) include inline comments explaining each step.
 If YAML is new to you, [`notes/yaml-primer.md`](notes/yaml-primer.md) has a short introduction.
 
+## Author
+
+Lucy Andrews — [California Department of Water Resources](https://water.ca.gov) |
+[ORCID 0000-0003-0278-9079](https://orcid.org/0000-0003-0278-9079) |
+[@lucy-dwr](https://github.com/lucy-dwr)
+
+## Citation
+
+If you use this material, please cite it. GitHub generates a formatted citation
+(BibTeX, APA, and others) from the [`CITATION.cff`](CITATION.cff) file — use the
+**Cite this repository** button in the sidebar on the repository page.
+
 ## Note for instructors
 
 The `renv.lock` file is already committed, so learners who clone this repository

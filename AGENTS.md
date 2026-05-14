@@ -20,6 +20,7 @@ The core message of the project:
 ```text
 reproducible-r-workflow-demo/
 ├── AGENTS.md                           # this file
+├── CITATION.cff                        # citation metadata (parsed by GitHub)
 ├── CLAUDE.md                           # Claude Code project context
 ├── LICENSE
 ├── README.md                           # human-facing project overview
