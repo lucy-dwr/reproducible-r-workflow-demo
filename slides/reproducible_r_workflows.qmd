@@ -335,6 +335,10 @@ jobs:
 ```
 :::
 
+---
+
+![](images/github_actions_history.png)
+
 ## CI is a reproducibility check, not scientific peer review {.smaller}
 
 <div class="gap"></div>
